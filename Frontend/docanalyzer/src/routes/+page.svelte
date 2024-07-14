@@ -1,13 +1,28 @@
 <script>
     let supported_docs = ['txt','pdf'];
+    let listener;
+    let github = "https://github.com/cyberpsychofc";
+    let handleFileUpload = () => {
+        listener.click();
+    }
 </script>
+
+<nav>
+    <a href="" class="nav-bar">Analyse</a>
+    <a href="" class="nav-bar">Donate</a>
+    <a href={github} class="nav-bar">Github</a>
+    <a href="" class="nav-bar">About</a>
+</nav>
 <div class="container">
     <h1 class="title">
         DocAnalyzer
     </h1>
     <div>
         <p class="sub-title">Upload files you want the AI to analyse and Ask Questions!</p>
-        <button class="file_input">Upload</button>
+        <button class="file_input" on:click={handleFileUpload}>Upload
+            <input type="file" bind:this={listener} style="display: none">
+        </button>
+
         <p>Supported formats:
         {#each supported_docs as format, i}
             {#if i != supported_docs.length - 1}
@@ -19,7 +34,7 @@
             and more coming soon</p>
     </div>
 </div>
-<footer>Copyright © Om Aryan | cyberpsych</footer>
+<footer>Copyright © Om Aryan | <a class="footlink" href={github}>cyberpsych</a></footer>
 
 <style>
     .container{
@@ -40,7 +55,7 @@
         font-size: x-large;
     }
     .file_input{
-        padding: 20px 200px;
+        padding: 25px 285px;
         font-size: large;
         color: white;
         background-color: #04AA6D;
@@ -50,7 +65,7 @@
         border: 2px solid #04AA6D;
     }
     .file_input:hover{
-        padding: 20px 200px;
+        padding: 25px 285px;
         font-size: large;
         color: #4d4d4d;
         background-color: #04f697;
@@ -60,7 +75,45 @@
         border: 2px solid #04f697;
     }
 
-    .title:after {
+    nav{
+        position: fixed;
+        font-family: Calibri;
+        left: 0;
+        top: 0;
+        width: 100%;
+        color: #000000;
+        margin-top: 10px;
+        padding: 10px;
+        font-size: large;
+        text-align: center;
+    }
+    .nav-bar{
+        padding: 10px;
+        color: #000000;
+        font-family: Bahnschrift;
+        text-decoration: none;
+        margin-left: 25px;
+        margin-right: 25px;
+    }
+    .nav-bar:hover{
+        padding: 10px;
+        color: #4d4d4d;
+        font-family: Bahnschrift;
+        text-decoration: none;
+        margin-left: 25px;
+        margin-right: 25px;
+    }
+    .footlink{
+        color: #000000;
+        font-family: Bahnschrift;
+        text-decoration: none;
+    }
+    .footlink:hover{
+        color: #4d4d4d;
+        font-family: Bahnschrift;
+        text-decoration: none;
+    }
+    .title:after{
         content: '';
         position: absolute;
         width: 100%;
@@ -79,6 +132,8 @@
     }
     footer{
         position: fixed;
+        font-family: Calibri;
+        font-weight: bold;
         left: 0;
         bottom: 0;
         width: 100%;
