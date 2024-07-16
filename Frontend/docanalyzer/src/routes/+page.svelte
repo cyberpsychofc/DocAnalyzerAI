@@ -1,9 +1,20 @@
 <script>
+    import {onMount} from "svelte";
     let supported_docs = ['txt','pdf'];
     let listener;
     let github = "https://github.com/cyberpsychofc";
-    let handleFileUpload = () => {
+
+    async function handleFileUpload(event){
         listener.click();
+       /* event.preventDefault(); // Prevent default form submission
+
+        const formData = new FormData(event.target);
+
+        const response = await fetch('http://localhost/8080/', {
+            method: 'POST',
+            body: formData
+        });
+        console.log(response.status); */
     }
 </script>
 
@@ -19,9 +30,11 @@
     </h1>
     <div>
         <p class="sub-title">Upload files you want the AI to analyse and Ask Questions!</p>
-        <button class="file_input" on:click={handleFileUpload}>Upload
-            <input type="file" bind:this={listener} style="display: none">
-        </button>
+        <form id="uploadFile" enctype="multipart/form-data">
+            <button class="file_input" on:click={handleFileUpload}>Upload
+                <input type="file" id="uploadInput" bind:this={listener} style="display: none">
+            </button>
+        </form>
 
         <p>Supported formats:
         {#each supported_docs as format, i}
@@ -63,6 +76,7 @@
         font-family: Calibri;
         border-radius: 5px;
         border: 2px solid #04AA6D;
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.20),0 17px 50px 0 rgba(0,0,0,0.1);
     }
     .file_input:hover{
         padding: 25px 285px;
