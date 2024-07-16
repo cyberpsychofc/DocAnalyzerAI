@@ -1,21 +1,32 @@
 <script>
-    import {onMount} from "svelte";
     let supported_docs = ['txt','pdf'];
     let listener;
     let github = "https://github.com/cyberpsychofc";
+    let backend_url = "http://localhost:8080/";
 
-    async function handleFileUpload(event){
+    let clickForm = () => {
         listener.click();
-       /* event.preventDefault(); // Prevent default form submission
-
-        const formData = new FormData(event.target);
-
-        const response = await fetch('http://localhost/8080/', {
-            method: 'POST',
-            body: formData
-        });
-        console.log(response.status); */
     }
+    let handleFileInput = (event) => {
+        event.preventDefault();
+        const file = listener.files[0];
+
+        if (file) {
+            const form = new FormData();
+            form.append('file', file);
+
+            const fetchParam = {
+                method: 'POST',
+                body: form,
+            };
+
+            fetch(backend_url, fetchParam)
+                .then(data => console.log('File sent to Spring:', data))
+                .catch(error => console.error('Error:', error));
+        } else {
+            console.log('No file selected');
+        }
+    };
 </script>
 
 <nav>
@@ -31,9 +42,8 @@
     <div>
         <p class="sub-title">Upload files you want the AI to analyse and Ask Questions!</p>
         <form id="uploadFile" enctype="multipart/form-data">
-            <button class="file_input" on:click={handleFileUpload}>Upload
-                <input type="file" id="uploadInput" bind:this={listener} style="display: none">
-            </button>
+            <input type="file" id="uploadInput" on:change={handleFileInput} bind:this={listener} style="display: none">
+            <button type="button" class="file_input" on:click={clickForm}>Upload</button>
         </form>
 
         <p>Supported formats:
