@@ -2,7 +2,7 @@
     let supported_docs = ['txt','pdf'];
     let listener;
     let github = "https://github.com/cyberpsychofc";
-    let backend_url = "http://localhost:8080/";
+    let backend_url = "http://localhost:8080/upload";
 
     let clickForm = () => {
         listener.click();
@@ -21,7 +21,7 @@
             };
 
             fetch(backend_url, fetchParam)
-                .then(data => console.log('File sent to Spring:', data))
+                .then(() => console.log('File sent to Spring'))
                 .catch(error => console.error('Error:', error));
         } else {
             console.log('No file selected');
@@ -30,7 +30,7 @@
 </script>
 
 <nav>
-    <a href="" class="nav-bar">Analyse</a>
+    <a href="/" class="nav-bar">Analyse</a>
     <a href="" class="nav-bar">Donate</a>
     <a href={github} class="nav-bar">Github</a>
     <a href="" class="nav-bar">About</a>

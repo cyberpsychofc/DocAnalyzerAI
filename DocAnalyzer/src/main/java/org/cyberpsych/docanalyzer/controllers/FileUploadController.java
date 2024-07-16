@@ -26,25 +26,12 @@ public class FileUploadController {
     }
 
     @GetMapping("/")
-    public String listUploadedFiles(Model model) throws IOException{
-        model.addAttribute("files", storageService.loadAll().map(
-                        path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
-                                "serveFile", path.getFileName().toString()).build().toUri().toString())
-                .collect(Collectors.toList()));
-
-        return "uploadForm";
-    }
-
-    @GetMapping("/files/{filename:.+}")
     @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
-        Resource file = storageService.loadAsResource(filename);
-
-        if (file == null)
-            return ResponseEntity.notFound().build();
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,"attachment; filename=\"" + file.getFilename() + "\"").body(file);
+    public ResponseEntity<String> backend() {
+        return ResponseEntity.ok("SUCCESS");
     }
-    @PostMapping("/")
+
+    @PostMapping("/upload")
     public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         storageService.store(file);
         redirectAttributes.addFlashAttribute("message", "File successfully uploaded : " + file.getOriginalFilename());
