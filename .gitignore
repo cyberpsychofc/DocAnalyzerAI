@@ -2,3 +2,7 @@
 *.iml
 **/node_modules
 **/upload-dir
+**/Scripts
+**/Lib
+**/Include
+*.cfg
