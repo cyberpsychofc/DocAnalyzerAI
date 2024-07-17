@@ -5,4 +5,8 @@
 **/Scripts
 **/Lib
 **/Include
+**/Library
+**/share
+**/etc
 *.cfg
+*.env
