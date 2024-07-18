@@ -23,6 +23,7 @@
             fetch(backend_url, fetchParam)
                 .then(() => console.log('File sent to Spring'))
                 .catch(error => console.error('Error:', error));
+            location.replace("http://localhost:8501");
         } else {
             console.log('No file selected');
         }
