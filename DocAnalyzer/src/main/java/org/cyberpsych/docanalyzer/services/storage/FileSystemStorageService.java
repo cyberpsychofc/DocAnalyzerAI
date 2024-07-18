@@ -8,10 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
 
 @Service
 public class FileSystemStorageService implements StorageService {
@@ -46,7 +43,11 @@ public class FileSystemStorageService implements StorageService {
                 throw new StorageException(
                         "Cannot store file outside current directory.");
             }
-            Files.deleteIfExists(destinationFile);
+            try(DirectoryStream<Path> directoryStream = Files.newDirectoryStream(this.rootLocation)){
+                for (Path path : directoryStream){
+                    Files.deleteIfExists(path);
+                }
+            }
 
             try (InputStream inputStream = file.getInputStream()) {
                 Files.copy(inputStream, destinationFile,
