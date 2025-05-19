@@ -10,3 +10,21 @@
 **/etc
 *.cfg
 *.env
+
+.gradle/
+build/
+
+*.class
+
+*.log
+
+
+# IDEs
+# IntelliJ
+.idea/
+*.iml
+
+# Output jars
+*.jar
+*.war
+*.ear
